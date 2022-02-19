@@ -29,6 +29,8 @@ public class PaddleMove : MonoBehaviour
     // Makes objects with "tree" tag disappear on contact
     void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag == "tree") {
+            gameObject.GetComponent<AudioSource>().Play();
+
             GameObject boomFx = Instantiate(hitVfx, other.gameObject.transform.position, Quaternion.identity);
             StartCoroutine(DestroyVFX(boomFx));
 
@@ -40,5 +42,7 @@ public class PaddleMove : MonoBehaviour
     IEnumerator DestroyVFX(GameObject theEffect) {
         yield return new WaitForSeconds(0.5f);
         Destroy(theEffect);
+
+        gameObject.GetComponent<AudioSource>().Stop();
     }
 }
